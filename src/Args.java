@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Args {
 //    private String schema;
-    private Schema schema;
+    private Arg schema;
     private Parser parser;
     private String[] args;
     private boolean valid = true;
@@ -21,7 +21,7 @@ public class Args {
         OK, MISSING_STRING, MISSING_INTEGER, INVALID_INTEGER, UNEXPECTED_ARGUMENT
     }
 
-    public Args(Schema schema, String[] args) throws ParseException, ArgsException {
+    public Args(Arg schema, String[] args) throws ParseException, ArgsException {
         this.schema = schema;
         this.args = args;
         valid = parse();

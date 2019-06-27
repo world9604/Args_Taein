@@ -1,26 +1,24 @@
 import java.text.ParseException;
 
 public class Parser {
+
+    private String schema;
+
+    private Parser(String schema) {
+        this.schema = schema;
+    }
+
     private boolean parseSchema() throws ParseException {
         for (String element : schema.split(",")) {
             if (element.length() > 0) {
                 String trimmedElement = element.trim();
-
-                char elementId = element.charAt(0);
-                String elementTail = element.substring(1);
-                validateSchemaElementId(elementId);
-
-                if (isSchemaElement(elementTail))
-                    parseSchemaElement(elementId);
-                else
-                    throw new ParseException(String.format("Argument: %c has invalid format: %s.",
-                            elementId, elementTail), 0);
+                parseSchemaElement(trimmedElement);
             }
         }
         return true;
     }
 
-    /*private void parseSchemaElement(String element) throws ParseException {
+    private void parseSchemaElement(String element) throws ParseException {
         char elementId = element.charAt(0);
         String elementTail = element.substring(1);
         validateSchemaElementId(elementId);
@@ -30,7 +28,7 @@ public class Parser {
         else
             throw new ParseException(String.format("Argument: %c has invalid format: %s.",
                     elementId, elementTail), 0);
-    }*/
+    }
 
     private void validateSchemaElementId(char elementId) throws ParseException {
         if (!Character.isLetter(elementId)) {
