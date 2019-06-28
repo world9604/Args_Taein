@@ -3,6 +3,7 @@ import java.text.ParseException;
 public class Parser {
 
     private String schema;
+    private Arg arg;
 
     private Parser(String schema) {
         this.schema = schema;
@@ -22,12 +23,8 @@ public class Parser {
         char elementId = element.charAt(0);
         String elementTail = element.substring(1);
         validateSchemaElementId(elementId);
-
-        if (isSchemaElement(elementTail))
-            parseSchemaElement(elementId);
-        else
-            throw new ParseException(String.format("Argument: %c has invalid format: %s.",
-                    elementId, elementTail), 0);
+        Arg arg = ArgFactory.createArgBy(elementTail);
+        arg.put(elementId);
     }
 
     private void validateSchemaElementId(char elementId) throws ParseException {
@@ -45,5 +42,4 @@ public class Parser {
     private void parseStringSchemaElement(char elementId) {
         stringArgs.put(elementId, "");
     }*/
-    protected abstract void parserSchemaElement(char elementId);
 }

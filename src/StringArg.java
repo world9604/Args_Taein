@@ -1,14 +1,20 @@
-public class StringArg implements Arg {
-    private String args;
-    private String schema;
+import java.util.HashMap;
+import java.util.Map;
 
-    public StringArg(String schema, String args) {
-        this.schema = schema;
-        this.args = args;
+public class StringArg implements Arg <String> {
+    private Map<Character, String> args = new HashMap<>();
+
+    public StringArg() {
     }
 
     @Override
     public boolean isSchemaElement(String elementTail) {
         return elementTail.equals("*");
+    }
+
+    @Override
+    public void put(char elementId, String value) {
+//        args.put(elementId, "");
+        args.put(elementId, args[value]);
     }
 }
