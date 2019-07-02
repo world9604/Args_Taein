@@ -3,7 +3,7 @@ import java.text.ParseException;
 public class Parser {
 
     private String schema;
-    private Arg arg;
+    private ArgumentMarshaler argumentMarshaler;
 
     private Parser(String schema) {
         this.schema = schema;
@@ -23,8 +23,8 @@ public class Parser {
         char elementId = element.charAt(0);
         String elementTail = element.substring(1);
         validateSchemaElementId(elementId);
-        Arg arg = ArgFactory.createArgBy(elementTail);
-        arg.put(elementId);
+        ArgumentMarshaler argumentMarshaler = ArgFactory.createArgBy(elementTail);
+        argumentMarshaler.put(elementId);
     }
 
     private void validateSchemaElementId(char elementId) throws ParseException {

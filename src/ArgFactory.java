@@ -1,17 +1,17 @@
 public class ArgFactory {
-    public static Arg createArgBy (String elementTail) {
+    public static ArgumentMarshaler createArgBy (String elementTail) {
         if (elementTail.equals("*")) {
-            return new StringArg();
+            return new StringArgumentMarshaler();
         }
 
         if (elementTail.equals("#")) {
-            return new BooleanArg();
+            return new BooleanArgumentMarshaler();
         }
 
         if (elementTail.length() == 0) {
-            return new IntegerArg();
+            return new IntegerArgumentMarshaler();
         }
 
-        return new NullArg();
+        return new NullArgumentMarshaler();
     }
 }
