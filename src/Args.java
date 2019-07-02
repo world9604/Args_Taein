@@ -1,4 +1,3 @@
-import java.text.ParseException;
 import java.util.*;
 
 public class Args {
@@ -38,12 +37,12 @@ public class Args {
         else if(elementTail.equals("#"))
             marshalers.put(elementId, new IntegerArgumentMarshaler());
         else
-            throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementTail);
+            throw new ArgsException(ArgsException.ErrorCode.INVALID_ARGUMENT_FORMAT, elementId, elementTail);
     }
 
     private void validateSchemaElementId(char elementId) throws ArgsException {
         if (!Character.isLetter(elementId))
-            throw new ArgsException(INVALID_ARGUMENT_NAME, elementId, null);
+            throw new ArgsException(ArgsException.ErrorCode.INVALID_ARGUMENT_NAME, elementId, null);
     }
 
     private void parseArgumentStrings(List<String> argsList) throws ArgsException {
@@ -67,13 +66,13 @@ public class Args {
     private void parseArgumentCharacter(char argChar) throws ArgsException {
         ArgumentMarshaler m = marshalers.get(argChar);
         if (m == null) {
-            throw new ArgsException(ErrorCode.UNEXPECTED_ARGUMENT, argChar, null);
+            throw new ArgsException(ArgsException.ErrorCode.UNEXPECTED_ARGUMENT, argChar, null);
         } else {
             argsFound.add(argChar);
             try {
                 m.set(currentArgument);
             } catch (ArgsException e) {
-                e.setErrorArgmentId(argChar);
+                e.setErrorArgumentId(argChar);
                 throw e;
             }
         }
@@ -99,6 +98,4 @@ public class Args {
         return IntegerArgumentMarshaler.getValue(marshalers.get(arg));
     }
 
-    private class ArgsException extends Exception {
-    }
 }

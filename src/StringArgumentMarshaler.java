@@ -23,7 +23,7 @@ public class StringArgumentMarshaler implements ArgumentMarshaler {
         try {
             stringValue = currentArgument.next();
         } catch (NoSuchElementException e) {
-            throw new ArgsException(MISSING_STRING);
+            throw new ArgsException(ArgsException.ErrorCode.MISSING_STRING);
         }
     }
 
